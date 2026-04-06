@@ -1,0 +1,15 @@
+:root {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #213645, #a2bccf);
+  font-family: "Bricolage Grotesque", Helvetica, sans-serif;
+}
+
+button {
+  font-family: var(--font-family)
+}
+
+li {
+  list-style-type: none;
+}
