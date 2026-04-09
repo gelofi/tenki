@@ -78,7 +78,7 @@ function Nav({ settings, setSettings }) {
             <img 
               className='menu' 
               id='hamburger' 
-              src="src/assets/menu.svg" 
+              src="/src/assets/menu.svg" 
               alt="menu" 
               onClick={() => setIsOpen(!isOpen)}
               style={{ display: 'block' }}
