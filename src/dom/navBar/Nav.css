@@ -42,6 +42,7 @@
     list-style: none; /* Added to remove default bullets */
 
     li {
+      position: relative;
       margin: 2rem;
     }
 
@@ -64,7 +65,6 @@
   }
 }
 
-/* NEW: Styles for the Mobile Dropdown Container */
 .mobileMenuDropdown {
   background: rgba(255,255,255,0.12);
   backdrop-filter: blur(15px);
@@ -99,4 +99,69 @@
   .navBar #navBtns {
     margin-right: 2%;
   }
+}
+
+.settings-menu {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.15);
+  position: absolute;
+  top: 100%; /* Directly below the button */
+  right: 0;
+  border-radius: 8px;
+  padding: 15px;
+  min-width: 150px;
+  z-index: 1000; /* Ensure it stays above other content */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settings-menu div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.settings-menu select, 
+.mobile-settings-options select {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: white;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  outline: none;
+}
+
+.settings-menu select:hover {
+  background: #555;
+}
+
+/* MOBILE SETTINGS STYLES */
+.mobile-settings-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
+.mobile-settings-options select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+/* Mobile specific button adjust */
+.mobileNavBtn {
+  width: 100%;
+  text-align: left;
 }

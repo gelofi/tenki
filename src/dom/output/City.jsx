@@ -1,15 +1,30 @@
 import { useState, useEffect } from "react";
 import "./City.css";
 import { getSearchedCity } from "../../auxFuncs/Util";
+import { weatherMap } from "../../auxFuncs/Formats";
 
-function City({ onBack }) {
+// 1. Receive settings prop
+function City({ onBack, settings }) {
   const [weather, setWeather] = useState(null);
   const [location, setLocation] = useState(getSearchedCity() || "");
 
-  // take the searched city's corordinates
+  // convert C to F
+  const formatTemp = (celsius) => {
+    if (settings.temp === "F")
+      return `${((celsius * 9) / 5 + 32).toFixed(1)}°F`;
+    return `${celsius}°C`;
+  };
+
+  // convert kPa to mmHg
+  const formatPressure = (kpa) => {
+    if (settings.pressure === "mmHg")
+      return `${(kpa * 0.750062).toFixed(2)} mmHg`;
+    return `${kpa} kPa`;
+  };
+
   const fetchWeather = async (lat, lon) => {
     const res = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=relative_humidity_2m,temperature_2m,precipitation,rain,wind_speed_10m,showers,apparent_temperature`,
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=relative_humidity_2m,temperature_2m,precipitation,rain,wind_speed_10m,showers,apparent_temperature,weather_code,surface_pressure`,
     );
     const data = await res.json();
     setWeather(data);
@@ -33,44 +48,74 @@ function City({ onBack }) {
   }, []);
 
   let changeBg = new Promise((resolve, reject) => {
-    if(weather != null){
-        resolve(weather);
+    if (weather != null) {
+      resolve(weather);
     } else {
-        reject("No weather information found.");
+      reject("No weather information found.");
     }
-  })
+  });
   changeBg.then(
-    function(weather){
-        const temp = weather.current.temperature_2m;
-        if (temp < 20) {
-            document.documentElement.style.setProperty('--background', 'linear-gradient(to bottom, #163b41, #6fa3b6)');
-        } else if (temp > 30 && temp < 36) {
-            document.documentElement.style.setProperty('--background', 'linear-gradient(to bottom, #213345, #cfc9a2)');
-        } else if (temp > 35){
-            document.documentElement.style.setProperty('--background', 'linear-gradient(to bottom, #741c1c, #ceb590)');
-        }
+    function (weather) {
+      const temp = weather.current.temperature_2m;
+      if (temp < 20) {
+        document.documentElement.style.setProperty(
+          "--background",
+          "linear-gradient(to bottom, #163b41, #6fa3b6)",
+        );
+      } else if (temp > 30 && temp < 36) {
+        document.documentElement.style.setProperty(
+          "--background",
+          "linear-gradient(to bottom, #213345, #cfc9a2)",
+        );
+      } else if (temp > 35) {
+        document.documentElement.style.setProperty(
+          "--background",
+          "linear-gradient(to bottom, #741c1c, #ceb590)",
+        );
+      }
     },
-    function(weather){
-        console.log("The promise is taking its time to load...")
-    }
-  )
-  
+    function (weather) {
+      console.log("The promise is taking its time to load...");
+    },
+  );
+
   return (
     <>
       <h1 className="cityName">
-        {weather ? `${weather.current.temperature_2m}${weather.current_units.temperature_2m}` : "--°C"}
+        {weather ? formatTemp(weather.current.temperature_2m) : "--"}
       </h1>
       <p className="description">
         {location.name}, {location.country}
       </p>
       <div className="two-grid">
         <div className="weather-card">
-            <p>Humidity: {weather ? `${weather.current.relative_humidity_2m}${weather.current_units.relative_humidity_2m}` : "--"}</p>
-            <p>Wind Speed: {weather ? `${weather.current.wind_speed_10m}${weather.current_units.wind_speed_10m}` : "--"}</p>
-            <p>Feels like {weather ? `${weather.current.apparent_temperature}${weather.current_units.apparent_temperature}` : "--"}</p>
+          <p>
+            Humidity:{" "}
+            {weather
+              ? `${weather.current.relative_humidity_2m}${weather.current_units.relative_humidity_2m}`
+              : "--"}
+          </p>
+          <p>
+            Wind Speed:{" "}
+            {weather
+              ? `${weather.current.wind_speed_10m}${weather.current_units.wind_speed_10m}`
+              : "--"}
+          </p>
+          <p>
+            Surface Pressure:{" "}
+            {weather ? formatPressure(weather.current.surface_pressure) : "--"}
+          </p>
         </div>
         <div className="weather-card">
-
+          <p>
+            Feels like{" "}
+            {weather ? formatTemp(weather.current.apparent_temperature) : "--"}
+          </p>
+          <p>
+            {weather
+              ? `${weatherMap[weather.current.weather_code].icon} ${weatherMap[weather.current.weather_code].desc}`
+              : "--"}
+          </p>
         </div>
       </div>
       <div className="grid">

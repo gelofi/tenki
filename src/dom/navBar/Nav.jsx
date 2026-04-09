@@ -1,9 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
 import './Nav.css';
 
-function Nav() {
+function Nav({ settings, setSettings }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isOpen, setIsOpen] = useState(false);
+
+  // settings
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const updateSetting = (key, value) => {
+        // This now updates the PARENT state
+        setSettings(prev => ({ ...prev, [key]: value }));
+    };
+  
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -16,6 +24,7 @@ function Nav() {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
+        setSettingsOpen(false);
       }
     };
 
@@ -36,16 +45,35 @@ function Nav() {
         </div>
 
         <ul id='navBtns' ref={dropdownRef}>
-          {/* DESKTOP BUTTONS: Only show if NOT mobile */}
           {!isMobile && (
             <>
               <li><button className='navBtn'>Home</button></li>
               <li><button className='navBtn'>About</button></li>
-              <li><button className='navBtn'>Settings</button></li>
+              <li style={{ position: 'relative' }}>
+                <button className='navBtn' onClick={() => setSettingsOpen(!settingsOpen)}>Settings</button>
+                {/* SETTINGS DROPDOWN */}
+                {settingsOpen && (
+                  <div className="settings-menu">
+                    <div>
+                      <label>Temp: </label>
+                      <select value={settings.temp} onChange={(e) => updateSetting('temp', e.target.value)}>
+                        <option value="C">°C</option>
+                        <option value="F">°F</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label>Pressure: </label>
+                      <select value={settings.pressure} onChange={(e) => updateSetting('pressure', e.target.value)}>
+                        <option value="kPa">kPa</option>
+                        <option value="mmHg">mmHg</option>
+                      </select>
+                    </div>
+                  </div>
+                )}
+              </li>
             </>
           )}
 
-          {/* MOBILE HAMBURGER: Show if IS mobile */}
           {isMobile && (
             <img 
               className='menu' 
@@ -53,16 +81,29 @@ function Nav() {
               src="src/assets/menu.svg" 
               alt="menu" 
               onClick={() => setIsOpen(!isOpen)}
-              style={{ display: 'block' }} // Overrides the "display: none" in your CSS
+              style={{ display: 'block' }}
             />
           )}
 
-          {/* MOBILE DROPDOWN: Show if mobile AND isOpen is true */}
           {isMobile && isOpen && (
             <div className="mobileMenuDropdown">
               <li><button className='navBtn mobileNavBtn'>Home</button></li>
               <li><button className='navBtn mobileNavBtn'>About</button></li>
-              <li><button className='navBtn mobileNavBtn'>Settings</button></li>
+              <li>
+                <button className='navBtn mobileNavBtn' onClick={() => setSettingsOpen(!settingsOpen)}>Settings</button>
+                {settingsOpen && (
+                  <div className="mobile-settings-options">
+                     <select value={settings.temp} onChange={(e) => updateSetting('temp', e.target.value)}>
+                        <option value="C">°C</option>
+                        <option value="F">°F</option>
+                      </select>
+                      <select value={settings.pressure} onChange={(e) => updateSetting('pressure', e.target.value)}>
+                        <option value="kPa">kPa</option>
+                        <option value="mmHg">mmHg</option>
+                      </select>
+                  </div>
+                )}
+              </li>
             </div>
           )}
         </ul>
