@@ -1,0 +1,102 @@
+/* Compiled Nav.css with React-logic support */
+.navBar {
+  display: flex;
+  position: sticky;
+  margin-top: 3vh;
+  /* Added relative position so dropdown aligns to the navbar */
+  position: relative; 
+
+  #tenki {
+    display: flex;
+    align-self: center;
+    margin-left: 6%;
+    color: rgb(228, 236, 242);
+  }
+
+  h1 {
+    margin-left: 20px;
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+    align-self: center;
+    margin-bottom: 8px;
+  }
+
+  .menu {
+    width: 30px;
+    height: 30px;
+    margin: 2rem;
+    /* REMOVED display: none; React now controls visibility */
+    transition: 0.2s;
+    align-self: center;
+    cursor: pointer;
+  }
+
+  #navBtns {
+    display: flex;
+    margin-left: auto;
+    align-self: center;
+    margin-right: 6%;
+    list-style: none; /* Added to remove default bullets */
+
+    li {
+      margin: 2rem;
+    }
+
+    .navBtn {
+      color: rgb(228, 236, 242);
+      font-size: 16px;
+      background-color: transparent;
+      border-radius: 2rem;
+      border: transparent;
+      font-weight: 400;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .navBtn:hover {
+      font-weight: 600;
+      transform: scale(1.5);
+      transition: 0.3s;
+    }
+  }
+}
+
+/* NEW: Styles for the Mobile Dropdown Container */
+.mobileMenuDropdown {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.15);
+  position: absolute;
+  top: 100%; /* Puts it right below the navbar */
+  right: 6%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.mobileMenuDropdown li {
+  margin: 0.5rem 0 !important; /* Stack buttons vertically */
+}
+
+#hamburger {
+  opacity: 1;
+}
+
+#hamburger:hover {
+  opacity: 0.5;
+}
+
+/* CLEANED UP: Let React handle the visibility logic */
+@media screen and (max-width: 768px) {
+  /* We remove the display:none here because React 
+     removes the elements from the DOM entirely */
+  .navBar #navBtns {
+    margin-right: 2%;
+  }
+}

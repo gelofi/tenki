@@ -2,8 +2,16 @@
   background-repeat: no-repeat;
   background-attachment: fixed;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #213645, #a2bccf);
+  --background: linear-gradient(to bottom, #213645, #a2bccf);
   font-family: "Bricolage Grotesque", Helvetica, sans-serif;
+}
+
+body {
+  background: var(--background);
+}
+
+h1, h2, h3, p {
+  color: white;
 }
 
 button {

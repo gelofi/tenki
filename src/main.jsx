@@ -1,11 +1,26 @@
-import { StrictMode } from 'react';
+import { StrictMode, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import './index.css'; // main CSS file
-import App from './dom/App.jsx'; // import page
+import './index.css'; 
+import Nav from './dom/navBar/Nav.jsx';
+import Welcome from './dom/welcome/Welcome.jsx';
+import City from './dom/output/City.jsx';
 
-// this is the DOM builder
+function Page() {
+  const [city, setCity] = useState("");
+  return (
+    <>
+      {!city ? (
+        <Welcome onSearch={setCity} />
+      ) : (
+        <City city={city} onBack={() => setCity("")} />
+      )}
+    </>
+  );
+}
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App/>
-  </StrictMode>,
+    <Nav />
+    <Page />
+  </StrictMode>
 );
