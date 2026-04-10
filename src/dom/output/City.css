@@ -104,8 +104,18 @@ button:hover {
 }
 
 @media screen and (max-width: 768px) {
+  .cityName {
+    font-size: 3rem;
+  }
+
   .feelsLike {
     margin-top: -1%;
     margin-bottom: 8%;
+  }
+  
+  .weather-card {
+    h2 {
+      font-size: 2rem;
+    }
   }
 }

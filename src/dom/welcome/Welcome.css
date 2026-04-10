@@ -1,5 +1,5 @@
 .cityName {
-    font-size: 2rem;
+    font-size: 5rem;
     margin-left: 6%;
     margin-bottom: auto;
 }
@@ -73,7 +73,7 @@ button:hover {
 
 @media screen and (max-width: 768px) {
     .cityName {
-        font-size: 4rem;
+        font-size: 3rem;
     }
 
     .description {
