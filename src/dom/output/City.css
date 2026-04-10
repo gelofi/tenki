@@ -21,7 +21,7 @@
   margin-left: 6%;
   margin-top: -2.5%;
   font-size: 1.5rem;
-  margin-bottom: 4%;
+  margin-bottom: 5%;
 }
 
 .grid {
@@ -144,7 +144,7 @@ button:hover {
 
   .feelsLike {
     margin-top: -1%;
-    margin-bottom: 8%;
+    margin-bottom: 20%;
   }
   
   .weather-card {
