@@ -119,14 +119,15 @@ function City({ onBack, settings }) {
           ? `Feels like ${formatTemp(weather.current.apparent_temperature)}`
           : ""}
       </p>
+
       <div className="two-grid">
         <div className="weather-card">
-          <h2>
+          <h2>Humidity</h2>
+          <h1>
             {weather
               ? `${weather.current.relative_humidity_2m}${weather.current_units.relative_humidity_2m}`
-              : "--"}{" "}
-            Humidity
-          </h2>
+              : "--"}
+          </h1>
           <p>
             {weather
               ? humidityMap(weather.current.relative_humidity_2m)
@@ -134,10 +135,12 @@ function City({ onBack, settings }) {
           </p>
         </div>
         <div className="weather-card">
-          <h2>
-            Surface Pressure:{" "}
-            {weather ? formatPressure(weather.current.surface_pressure) : "--"}
-          </h2>
+          <h2>Surface Pressure</h2>
+          <h1>
+            {weather
+              ? formatPressure(weather.current.surface_pressure)
+              : "--"}{" "}
+          </h1>
           <p>
             {weather
               ? surfacePressureMap(weather.current.surface_pressure)
@@ -146,15 +149,15 @@ function City({ onBack, settings }) {
         </div>
       </div>
       <div className="grid">
-        <div className="weather-card daily">
+        <div className="weather-card">
           <h2>
-            Wind Speed:{" "}
-            {weather ? `${weather.current.wind_speed_10m}${weather.current_units.wind_speed_10m}` : "--"}
+            {weather
+              ? `${weather.current.wind_speed_10m}${weather.current_units.wind_speed_10m}`
+              : "--"}{" "}
+            Wind Speed
           </h2>
           <p>
-            {weather
-              ? windSpeedMap(weather.current.wind_speed_10m)
-              : "..."}
+            {weather ? windSpeedMap(weather.current.wind_speed_10m) : "..."}
           </p>
         </div>
       </div>
