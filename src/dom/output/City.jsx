@@ -24,7 +24,7 @@ function City({ onBack, settings }) {
 
   const fetchWeather = async (lat, lon) => {
     const res = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=,temperature_2m&current=relative_humidity_2m,temperature_2m,precipitation,rain,wind_speed_10m,showers,apparent_temperature,weather_code,surface_pressure`,
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=temperature_2m_max,temperature_2m_min&hourly=temperature_2m&current=relative_humidity_2m,temperature_2m,precipitation,rain,wind_speed_10m,showers,apparent_temperature,weather_code,surface_pressure`,
     );
     const data = await res.json();
     setWeather(data);
@@ -79,6 +79,19 @@ function City({ onBack, settings }) {
     },
   );
 
+  const dailyWeatherReport = (index, weather) => {
+    if(!weather) return null;
+    return (
+      <>
+        <p>{weather.daily.time[index]}</p>
+        <p className="dailyTemp">
+          {formatTemp(weather.daily.temperature_2m_min[index])} / {formatTemp(weather.daily.temperature_2m_max[index])}
+        </p>
+      </>
+    );
+  }
+
+  // the actual DOM part
   return (
     <>
     <p className="location">
@@ -116,6 +129,34 @@ function City({ onBack, settings }) {
         </div>
       </div>
       <div className="grid">
+        <div className="weather-card daily">
+          <h2>
+            Daily Forecast
+          </h2>
+          <div className="seven-grid">
+            <div className="card">
+              {dailyWeatherReport(0, weather)}
+            </div>
+            <div className="card">
+              {dailyWeatherReport(1, weather)}
+            </div>
+            <div className="card">
+              {dailyWeatherReport(2, weather)}
+            </div>
+            <div className="card">
+              {dailyWeatherReport(3, weather)}
+            </div>
+            <div className="card">
+              {dailyWeatherReport(4, weather)}
+            </div>
+            <div className="card">
+              {dailyWeatherReport(5, weather)}
+            </div>
+            <div className="card">
+              {dailyWeatherReport(6, weather)}
+            </div>
+          </div>
+        </div>
         <div className="controls">
           <button onClick={onBack}>Search new city</button>
         </div>
