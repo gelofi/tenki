@@ -48,12 +48,6 @@
   margin-bottom: 20px;
 }
 
-.left-column {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
 .weather-card {
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(15px);
@@ -76,6 +70,13 @@
   h1, h2, p {
     margin-left: 6%;
     margin-right: 7%;
+  }
+
+  p {
+    margin-bottom: auto;
+  }
+  #pressure {
+    font-size: 1.8rem;
   }
 }
 

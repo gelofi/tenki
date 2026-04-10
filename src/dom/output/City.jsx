@@ -136,7 +136,7 @@ function City({ onBack, settings }) {
         </div>
         <div className="weather-card">
           <h2>Surface Pressure</h2>
-          <h1>
+          <h1 id="pressure">
             {weather
               ? formatPressure(weather.current.surface_pressure)
               : "--"}{" "}
@@ -150,12 +150,12 @@ function City({ onBack, settings }) {
       </div>
       <div className="grid">
         <div className="weather-card">
-          <h2>
+          <h2>Wind Speed</h2>
+          <h1>
             {weather
               ? `${weather.current.wind_speed_10m}${weather.current_units.wind_speed_10m}`
-              : "--"}{" "}
-            Wind Speed
-          </h2>
+              : "--"}
+          </h1>
           <p>
             {weather ? windSpeedMap(weather.current.wind_speed_10m) : "..."}
           </p>
