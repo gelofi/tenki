@@ -24,7 +24,7 @@ function City({ onBack, settings }) {
 
   const fetchWeather = async (lat, lon) => {
     const res = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=relative_humidity_2m,temperature_2m,precipitation,rain,wind_speed_10m,showers,apparent_temperature,weather_code,surface_pressure`,
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=,temperature_2m&current=relative_humidity_2m,temperature_2m,precipitation,rain,wind_speed_10m,showers,apparent_temperature,weather_code,surface_pressure`,
     );
     const data = await res.json();
     setWeather(data);
@@ -62,7 +62,7 @@ function City({ onBack, settings }) {
           "--background",
           "linear-gradient(to bottom, #163b41, #6fa3b6)",
         );
-      } else if (temp > 30 && temp < 36) {
+      } else if (temp >= 30 && temp < 36) {
         document.documentElement.style.setProperty(
           "--background",
           "linear-gradient(to bottom, #213345, #cfc9a2)",
@@ -81,11 +81,19 @@ function City({ onBack, settings }) {
 
   return (
     <>
+    <p className="location">
+        {weather ? `${location.name}, ${location.country}` : "Finding location..."}
+      </p>
       <h1 className="cityName">
-        {weather ? formatTemp(weather.current.temperature_2m) : "--"}
+        {weather ? formatTemp(weather.current.temperature_2m) : "Getting temperature..."}
       </h1>
+      <h2 className="cityWeather">
+        {weather
+          ? `${weatherMap[weather.current.weather_code].icon} ${weatherMap[weather.current.weather_code].desc}`
+          : "Loading weather report..."}
+      </h2>
       <p className="description">
-        {location.name}, {location.country}
+        {weather ? `Feels like ${formatTemp(weather.current.apparent_temperature)}` : ""}
       </p>
       <div className="two-grid">
         <div className="weather-card">
@@ -107,15 +115,6 @@ function City({ onBack, settings }) {
           </p>
         </div>
         <div className="weather-card">
-          <p>
-            Feels like{" "}
-            {weather ? formatTemp(weather.current.apparent_temperature) : "--"}
-          </p>
-          <p>
-            {weather
-              ? `${weatherMap[weather.current.weather_code].icon} ${weatherMap[weather.current.weather_code].desc}`
-              : "--"}
-          </p>
         </div>
       </div>
       <div className="grid">

@@ -6,20 +6,19 @@ import Welcome from './dom/welcome/Welcome.jsx';
 import City from './dom/output/City.jsx';
 
 function Page() {
+  // sharing the params for all JSX files
   const [city, setCity] = useState("");
-  
-  // 1. Define settings state here so it can be shared
   const [settings, setSettings] = useState({ temp: 'C', pressure: 'kPa' });
 
   return (
     <>
-      {/* 2. Pass settings AND the setter to Nav */}
+      {/* passing settings params */}
       <Nav settings={settings} setSettings={setSettings} />
       
       {!city ? (
         <Welcome onSearch={setCity} />
       ) : (
-        /* 3. Pass settings to City so it can convert the units */
+        /* passing city params */
         <City city={city} settings={settings} onBack={() => setCity("")} />
       )}
     </>

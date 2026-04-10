@@ -1,6 +1,7 @@
 .cityName {
     font-size: 2rem;
     margin-left: 6%;
+    margin-bottom: auto;
 }
 
 .description {
@@ -15,12 +16,6 @@
     gap: 20px;
     margin: 0px 6% 0px 6%;
     margin-bottom: 20px;
-}
-
-.left-column {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
 }
 
 .search-card {
@@ -52,6 +47,7 @@ input {
     background: rgba(255,255,255,0.1);
     color: white;
     backdrop-filter: blur(10px);
+    margin: 1%;
 }
         
 input::placeholder {
@@ -73,4 +69,14 @@ button {
 button:hover { 
     background: rgba(255,255,255,0.3);
     transform: translateY(-1px);
+}
+
+@media screen and (max-width: 768px) {
+    .cityName {
+        font-size: 4rem;
+    }
+
+    .description {
+        margin-bottom: 6%;
+    }
 }

@@ -1,9 +1,7 @@
-/* Compiled Nav.css with React-logic support */
 .navBar {
   display: flex;
   position: sticky;
   margin-top: 3vh;
-  /* Added relative position so dropdown aligns to the navbar */
   position: relative; 
 
   #tenki {
@@ -28,7 +26,6 @@
     width: 30px;
     height: 30px;
     margin: 2rem;
-    /* REMOVED display: none; React now controls visibility */
     transition: 0.2s;
     align-self: center;
     cursor: pointer;
@@ -39,7 +36,7 @@
     margin-left: auto;
     align-self: center;
     margin-right: 6%;
-    list-style: none; /* Added to remove default bullets */
+    list-style: none;
 
     li {
       position: relative;
@@ -65,54 +62,24 @@
   }
 }
 
-.mobileMenuDropdown {
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255,255,255,0.15);
-  position: absolute;
-  top: 100%; /* Puts it right below the navbar */
-  right: 6%;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  border-radius: 1rem;
-  box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
-  z-index: 1000;
-}
-
-.mobileMenuDropdown li {
-  margin: 0.5rem 0 !important; /* Stack buttons vertically */
-}
-
-#hamburger {
-  opacity: 1;
-}
-
-#hamburger:hover {
-  opacity: 0.5;
-}
-
-/* CLEANED UP: Let React handle the visibility logic */
 @media screen and (max-width: 768px) {
-  /* We remove the display:none here because React 
-     removes the elements from the DOM entirely */
   .navBar #navBtns {
     margin-right: 2%;
   }
 }
 
 .settings-menu {
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.12); /* make it have a frosted glass effectttt*/
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255,255,255,0.15);
   position: absolute;
-  top: 100%; /* Directly below the button */
+  top: 100%; /* make it look like it's parang floating lang */
   right: 0;
   border-radius: 8px;
   padding: 15px;
   min-width: 150px;
-  z-index: 1000; /* Ensure it stays above other content */
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  z-index: 1000; /* ensure it stays above other content, floating */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -128,7 +95,7 @@
 }
 
 .settings-menu select, 
-.mobile-settings-options select {
+.mobile-settings-menu select {
   background: rgba(255,255,255,0.12);
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255,255,255,0.15);
@@ -143,24 +110,99 @@
   background: #555;
 }
 
-/* MOBILE SETTINGS STYLES */
-.mobile-settings-options {
+.about-menu {
+  background: rgba(255,255,255,0.12); /* make it have a frosted glass effectttt*/
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.15);
+  position: absolute;
+  top: 100%; /* make it look like it's parang floating lang */
+  right: 0;
+  border-radius: 8px;
+  padding: 15px;
+  min-width: 300px;
+  z-index: 1000; /* ensure it stays above other content, floating */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+/* for mobile */
+
+/* when you click About*/
+.mobile-about-menu { 
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(0,0,0,0.15);
+  position: absolute;
+  top: 100%; /* make it look like it's parang floating lang */
+  right: 0;
+  border-radius: 16px;
+  padding: 15px;
+  min-width: 300px;
+  z-index: 1000; /* ensure it stays above other content, floating */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  gap: 12px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* when you click Settings */
+.mobile-settings-menu { 
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-top: 10px;
   padding: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
+  border-radius: 16px;
+  color: white;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(0,0,0,0.15);
+  position: absolute;
+  top: 100%; /* make it look like it's parang floating lang */
+  right: 0;
+  padding: 15px;
+  min-width: 300px;
+  z-index: 1000; /* ensure it stays above other content, floating */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.75);
 }
 
-.mobile-settings-options select {
+.mobileMenuDropdown {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255,255,255,0.15);
+  position: absolute;
+  top: 100%;
+  right: 6%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.mobileMenuDropdown li {
+  margin: 0.5rem 0 !important; /* stack them vertically */
+}
+
+#hamburger {
+  opacity: 1;
+}
+
+#hamburger:hover {
+  opacity: 0.5;
+}
+
+.mobile-settings-menu select {
   width: 100%;
   padding: 10px;
   font-size: 1rem;
 }
 
-/* Mobile specific button adjust */
+/* mobile specific button adjust */
 .mobileNavBtn {
   width: 100%;
   text-align: left;

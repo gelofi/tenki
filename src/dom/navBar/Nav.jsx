@@ -8,10 +8,12 @@ function Nav({ settings, setSettings }) {
   // settings
   const [settingsOpen, setSettingsOpen] = useState(false);
   const updateSetting = (key, value) => {
-        // This now updates the PARENT state
+        // passing the settings KEYS into the params in main.jsx
         setSettings(prev => ({ ...prev, [key]: value }));
     };
-  
+  // about
+  const [aboutOpen, setAboutOpen] = useState(false); // no need to pass these params to main.jsx. they're not needed
+
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -36,6 +38,46 @@ function Nav({ settings, setSettings }) {
     };
   }, []);
 
+  // desktop parts
+  const aboutHero = (port) => {
+    return (
+      <div className={port}>
+        <p>Developed by Angelo ♡ in Vite-React</p>
+        <p>
+          A weather app created in fulfillment of the final project
+          requirement of Web Systems and Technologies.
+        </p>
+      </div>
+    );
+  }
+
+  const settingsHero = (port) => {
+    return(
+      <div className={port}>
+        <div>
+          <label>Temp: </label>
+          <select
+            value={settings.temp}
+            onChange={(e) => updateSetting("temp", e.target.value)}
+          >
+            <option value="C">°C</option>
+            <option value="F">°F</option>
+          </select>
+        </div>
+        <div>
+          <label>Pressure: </label>
+          <select
+            value={settings.pressure}
+            onChange={(e) => updateSetting("pressure", e.target.value)}
+          >
+            <option value="kPa">kPa</option>
+            <option value="mmHg">mmHg</option>
+          </select>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <section>
       <nav className='navBar'>
@@ -45,36 +87,20 @@ function Nav({ settings, setSettings }) {
         </div>
 
         <ul id='navBtns' ref={dropdownRef}>
-          {!isMobile && (
+          {!isMobile && ( /* desktop mode. */
             <>
               <li><button className='navBtn'>Home</button></li>
-              <li><button className='navBtn'>About</button></li>
+              <li><button className='navBtn' onClick={() => setAboutOpen(!aboutOpen)}>About</button>
+              { aboutOpen && aboutHero("about-menu") }
+              </li>
               <li style={{ position: 'relative' }}>
                 <button className='navBtn' onClick={() => setSettingsOpen(!settingsOpen)}>Settings</button>
-                {/* SETTINGS DROPDOWN */}
-                {settingsOpen && (
-                  <div className="settings-menu">
-                    <div>
-                      <label>Temp: </label>
-                      <select value={settings.temp} onChange={(e) => updateSetting('temp', e.target.value)}>
-                        <option value="C">°C</option>
-                        <option value="F">°F</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label>Pressure: </label>
-                      <select value={settings.pressure} onChange={(e) => updateSetting('pressure', e.target.value)}>
-                        <option value="kPa">kPa</option>
-                        <option value="mmHg">mmHg</option>
-                      </select>
-                    </div>
-                  </div>
-                )}
+                { settingsOpen && settingsHero("settings-menu") }
               </li>
             </>
           )}
 
-          {isMobile && (
+          {isMobile && ( /* mobile version (hamburger dropdown) */
             <img 
               className='menu' 
               id='hamburger' 
@@ -88,21 +114,12 @@ function Nav({ settings, setSettings }) {
           {isMobile && isOpen && (
             <div className="mobileMenuDropdown">
               <li><button className='navBtn mobileNavBtn'>Home</button></li>
-              <li><button className='navBtn mobileNavBtn'>About</button></li>
+              <li><button className='navBtn mobileNavBtn' onClick={() => setAboutOpen(!aboutOpen)}>About</button>
+              { aboutOpen && aboutHero("mobile-about-menu") }
+              </li>
               <li>
                 <button className='navBtn mobileNavBtn' onClick={() => setSettingsOpen(!settingsOpen)}>Settings</button>
-                {settingsOpen && (
-                  <div className="mobile-settings-options">
-                     <select value={settings.temp} onChange={(e) => updateSetting('temp', e.target.value)}>
-                        <option value="C">°C</option>
-                        <option value="F">°F</option>
-                      </select>
-                      <select value={settings.pressure} onChange={(e) => updateSetting('pressure', e.target.value)}>
-                        <option value="kPa">kPa</option>
-                        <option value="mmHg">mmHg</option>
-                      </select>
-                  </div>
-                )}
+                {settingsOpen && settingsHero("mobile-settings-menu") }
               </li>
             </div>
           )}

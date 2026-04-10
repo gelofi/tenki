@@ -16,7 +16,6 @@ function Welcome({ onSearch }){
         }
         if (input.current && input.current.value) {
             const cityName = input.current.value;
-            
             setSearchedCity(cityName); 
             onSearch(cityName); 
         }
