@@ -47,7 +47,7 @@ input {
     background: rgba(255,255,255,0.1);
     color: white;
     backdrop-filter: blur(10px);
-    margin-right: 1.5%;
+    margin: 1.5%;
 }
         
 input::placeholder {
@@ -73,10 +73,11 @@ button:hover {
 
 @media screen and (max-width: 768px) {
     .cityName {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 
     .description {
+        font-size: 1rem;
         margin-bottom: 6%;
     }
 }

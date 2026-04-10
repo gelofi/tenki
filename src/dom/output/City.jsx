@@ -103,7 +103,7 @@ function City({ onBack, settings }) {
               : "--"} Humidity
           </h2>
           <p>
-            {weather ? humidityMap(weather.current.relative_humidity_2m) : "Humidity data unavailable."}
+            {weather ? humidityMap(weather.current.relative_humidity_2m) : "..."}
           </p>
         </div>
         <div className="weather-card">
@@ -111,7 +111,7 @@ function City({ onBack, settings }) {
           Surface Pressure: {weather ? formatPressure(weather.current.surface_pressure) : "--"}
         </h2>
           <p>
-            {weather ? surfacePressureMap(weather.current.surface_pressure) : "Surface Pressure data unavailable."}
+            {weather ? surfacePressureMap(weather.current.surface_pressure) : "..."}
           </p>
         </div>
       </div>
