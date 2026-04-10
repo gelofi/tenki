@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./City.css";
 import { getSearchedCity } from "../../auxFuncs/Util";
-import { weatherMap } from "../../auxFuncs/Formats";
+import { weatherMap, humidityMap, surfacePressureMap } from "../../auxFuncs/Formats";
 
 // 1. Receive settings prop
 function City({ onBack, settings }) {
@@ -92,29 +92,27 @@ function City({ onBack, settings }) {
           ? `${weatherMap[weather.current.weather_code].icon} ${weatherMap[weather.current.weather_code].desc}`
           : "Loading weather report..."}
       </h2>
-      <p className="description">
+      <p className="feelsLike">
         {weather ? `Feels like ${formatTemp(weather.current.apparent_temperature)}` : ""}
       </p>
       <div className="two-grid">
         <div className="weather-card">
-          <p>
-            Humidity:{" "}
+          <h2>
             {weather
               ? `${weather.current.relative_humidity_2m}${weather.current_units.relative_humidity_2m}`
-              : "--"}
-          </p>
+              : "--"} Humidity
+          </h2>
           <p>
-            Wind Speed:{" "}
-            {weather
-              ? `${weather.current.wind_speed_10m}${weather.current_units.wind_speed_10m}`
-              : "--"}
-          </p>
-          <p>
-            Surface Pressure:{" "}
-            {weather ? formatPressure(weather.current.surface_pressure) : "--"}
+            {weather ? humidityMap(weather.current.relative_humidity_2m) : "Humidity data unavailable."}
           </p>
         </div>
         <div className="weather-card">
+        <h2>
+          Surface Pressure: {weather ? formatPressure(weather.current.surface_pressure) : "--"}
+        </h2>
+          <p>
+            {weather ? surfacePressureMap(weather.current.surface_pressure) : "Surface Pressure data unavailable."}
+          </p>
         </div>
       </div>
       <div className="grid">

@@ -24,3 +24,41 @@ export const weatherMap = {
   96: { desc: "Thunderstorm with Hail", icon: "⛈️" },
   99: { desc: "Thunderstorm with Heavy Hail", icon: "⛈️" },
 };
+
+export const humidityMap = (humidity) => {
+  let description = "";
+  if (humidity >= 0 && humidity < 20) {
+    description = "The air is very dry. You may notice your skin or throat feels dry, and static electricity is more common.";
+  } else if (humidity >= 20 && humidity < 40) {
+    description = "There is very little moisture in the air. It feels crisp and light, which is typical for dry climates or indoor heating.";
+  } else if (humidity >= 40 && humidity < 60) {
+    description = "This is the most comfortable range for most people. The air feels balanced—neither too dry nor too sticky.";
+  } else if (humidity >= 60 && humidity < 80) {
+    description = "The air starts to feel heavy and damp. On warm days, this can make it feel a bit warmer than the actual temperature.";
+  } else if (humidity >= 80 && humidity <= 100) {
+    description = "The air is full of moisture. You will likely see fog, mist, or dew, and it can feel very thick and damp.";
+  } else {
+    description = "Humidity data unavailable.";
+  }
+  return description;
+}
+
+export const surfacePressureMap = (hPa) => {
+  let description = "";
+
+  if (hPa < 980) {
+    description = "Pressure is significantly below average. This is often associated with stormy conditions, strong winds, and heavy precipitation.";
+  } else if (hPa >= 980 && hPa < 1000) {
+    description = "Pressure is low, which usually brings unsettled weather such as clouds, rain, or wind as air rises and cools.";
+  } else if (hPa >= 1000 && hPa < 1020) {
+    description = "Pressure is near the global average. You can typically expect stable but changeable weather conditions.";
+  } else if (hPa >= 1020 && hPa < 1040) {
+    description = "Pressure is high, which generally leads to clear skies, calm winds, and dry, settled weather.";
+  } else if (hPa >= 1040) {
+    description = "Pressure is exceptionally high. This usually indicates very stable air, leading to prolonged periods of fair and dry weather.";
+  } else {
+    description = "Pressure data unavailable.";
+  }
+
+  return description;
+}
