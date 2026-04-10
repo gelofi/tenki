@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./City.css";
 import { getSearchedCity } from "../../auxFuncs/Util";
-import { weatherMap, humidityMap, surfacePressureMap, tempIcon } from "../../auxFuncs/Formats";
+import { weatherMap, humidityMap, surfacePressureMap, tempIcon, windSpeedMap } from "../../auxFuncs/Formats";
 
 // 1. Receive settings prop
 function City({ onBack, settings }) {
@@ -141,6 +141,19 @@ function City({ onBack, settings }) {
           <p>
             {weather
               ? surfacePressureMap(weather.current.surface_pressure)
+              : "..."}
+          </p>
+        </div>
+      </div>
+      <div className="grid">
+        <div className="weather-card daily">
+          <h2>
+            Wind Speed:{" "}
+            {weather ? `${weather.current.wind_speed_10m}${weather.current_units.wind_speed_10m}` : "--"}
+          </h2>
+          <p>
+            {weather
+              ? windSpeedMap(weather.current.wind_speed_10m)
               : "..."}
           </p>
         </div>

@@ -59,9 +59,29 @@ export const surfacePressureMap = (hPa) => {
   } else {
     description = "Pressure data unavailable.";
   }
-
   return description;
 }
+
+export const windSpeedMap = (kmh) => {
+  let description = "";
+
+  if (kmh < 1) {
+    description = "Calm. Smoke rises vertically and the air feels still.";
+  } else if (kmh >= 1 && kmh < 11) {
+    description = "Light breeze. You might feel the wind on your face and see leaves rustle slightly.";
+  } else if (kmh >= 11 && kmh < 28) {
+    description = "Moderate breeze. Small branches move, and dust or loose paper might blow around.";
+  } else if (kmh >= 28 && kmh < 49) {
+    description = "Strong breeze. Large branches are in motion and umbrellas become difficult to use.";
+  } else if (kmh >= 49 && kmh < 74) {
+    description = "High wind. Whole trees move and walking against the wind is noticeably difficult.";
+  } else if (kmh >= 74) {
+    description = "Gale force. Possible slight structural damage and very dangerous coastal conditions.";
+  } else {
+    description = "Wind data unavailable.";
+  }
+  return description;
+};
 
 export const tempMap = {
   extremeCold: "❄️",   // Snow cloud
