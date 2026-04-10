@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./City.css";
 import { getSearchedCity } from "../../auxFuncs/Util";
 import { weatherMap, humidityMap, surfacePressureMap, tempIcon, windSpeedMap } from "../../auxFuncs/Formats";
@@ -107,7 +107,7 @@ function City({ onBack, settings }) {
       <h1 className="cityName">
         {weather
           ? formatTemp(weather.current.temperature_2m)
-          : "Getting temperature..."}
+          : "--°"}
       </h1>
       <h2 className="cityWeather">
         {weather
