@@ -62,3 +62,27 @@ export const surfacePressureMap = (hPa) => {
 
   return description;
 }
+
+export const tempMap = {
+  extremeCold: "❄️",   // Snow cloud
+  veryCold: "🌨️",     // Cold cloud
+  cold: "☁️",          // Standard cloud
+  cool: "🌥️",          // Cloud with sun peeking
+  mild: "🌤️",          // Sun with small cloud
+  warm: "☀️",          // Full sun
+  hot: "🌞",           // Sun with face
+  veryHot: "🌅",       // Intense sun / Sunrise
+  extremeHeat: "🔥",   // Heat (Heat usually implies clear/sun)
+};
+
+export const tempIcon = (temp) => {
+  if (temp < -0) return tempMap.extremeCold;
+  if (temp < 0) return tempMap.veryCold;
+  if (temp <= 10) return tempMap.cold;
+  if (temp <= 18) return tempMap.cool;
+  if (temp <= 24) return tempMap.mild;
+  if (temp <= 29) return tempMap.warm;
+  if (temp <= 35) return tempMap.hot;
+  if (temp <= 40) return tempMap.veryHot;
+  return tempMap.extremeHeat;
+};

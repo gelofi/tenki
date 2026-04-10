@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import "./City.css";
 import { getSearchedCity } from "../../auxFuncs/Util";
-import { weatherMap, humidityMap, surfacePressureMap } from "../../auxFuncs/Formats";
+import { weatherMap, humidityMap, surfacePressureMap, tempIcon } from "../../auxFuncs/Formats";
 
 // 1. Receive settings prop
 function City({ onBack, settings }) {
-  const [weather, setWeather] = useState(null);
-  const [location, setLocation] = useState(getSearchedCity() || "");
+  const [weather, setWeather] = useState(null); // variable for the weather data
+  const [location, setLocation] = useState(getSearchedCity() || ""); // variable for location data (lat, lon)
+  const [isForecastOpen, setIsForecastOpen] = useState(false); // variable for collapsible daily data (default: unopened)
 
   // convert C to F
   const formatTemp = (celsius) => {
@@ -80,25 +81,33 @@ function City({ onBack, settings }) {
   );
 
   const dailyWeatherReport = (index, weather) => {
-    if(!weather) return null;
+    if (!weather) return null;
     return (
       <>
         <p>{weather.daily.time[index]}</p>
+        <h1>
+          {tempIcon((weather.daily.temperature_2m_min[index] + weather.daily.temperature_2m_max[index]) / 2)}
+        </h1>
         <p className="dailyTemp">
-          {formatTemp(weather.daily.temperature_2m_min[index])} / {formatTemp(weather.daily.temperature_2m_max[index])}
+          {formatTemp(weather.daily.temperature_2m_min[index])} /{" "}
+          {formatTemp(weather.daily.temperature_2m_max[index])}
         </p>
       </>
     );
-  }
+  };
 
   // the actual DOM part
   return (
     <>
-    <p className="location">
-        {weather ? `${location.name}, ${location.country}` : "Finding location..."}
+      <p className="location">
+        {weather
+          ? `${location.name}, ${location.country}`
+          : "Finding location..."}
       </p>
       <h1 className="cityName">
-        {weather ? formatTemp(weather.current.temperature_2m) : "Getting temperature..."}
+        {weather
+          ? formatTemp(weather.current.temperature_2m)
+          : "Getting temperature..."}
       </h1>
       <h2 className="cityWeather">
         {weather
@@ -106,57 +115,64 @@ function City({ onBack, settings }) {
           : "Loading weather report..."}
       </h2>
       <p className="feelsLike">
-        {weather ? `Feels like ${formatTemp(weather.current.apparent_temperature)}` : ""}
+        {weather
+          ? `Feels like ${formatTemp(weather.current.apparent_temperature)}`
+          : ""}
       </p>
       <div className="two-grid">
         <div className="weather-card">
           <h2>
             {weather
               ? `${weather.current.relative_humidity_2m}${weather.current_units.relative_humidity_2m}`
-              : "--"} Humidity
+              : "--"}{" "}
+            Humidity
           </h2>
           <p>
-            {weather ? humidityMap(weather.current.relative_humidity_2m) : "..."}
+            {weather
+              ? humidityMap(weather.current.relative_humidity_2m)
+              : "..."}
           </p>
         </div>
         <div className="weather-card">
-        <h2>
-          Surface Pressure: {weather ? formatPressure(weather.current.surface_pressure) : "--"}
-        </h2>
+          <h2>
+            Surface Pressure:{" "}
+            {weather ? formatPressure(weather.current.surface_pressure) : "--"}
+          </h2>
           <p>
-            {weather ? surfacePressureMap(weather.current.surface_pressure) : "..."}
+            {weather
+              ? surfacePressureMap(weather.current.surface_pressure)
+              : "..."}
           </p>
         </div>
       </div>
       <div className="grid">
         <div className="weather-card daily">
-          <h2>
+          <h2
+            onClick={() => setIsForecastOpen(!isForecastOpen)}
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             Daily Forecast
+            <span>{isForecastOpen ? "▲" : "▼"}</span>
           </h2>
-          <div className="seven-grid">
-            <div className="card">
-              {dailyWeatherReport(0, weather)}
+
+          {isForecastOpen && (
+            <div className="seven-grid">
+              <div className="card">{dailyWeatherReport(0, weather)}</div>
+              <div className="card">{dailyWeatherReport(1, weather)}</div>
+              <div className="card">{dailyWeatherReport(2, weather)}</div>
+              <div className="card">{dailyWeatherReport(3, weather)}</div>
+              <div className="card">{dailyWeatherReport(4, weather)}</div>
+              <div className="card">{dailyWeatherReport(5, weather)}</div>
+              <div className="card">{dailyWeatherReport(6, weather)}</div>
             </div>
-            <div className="card">
-              {dailyWeatherReport(1, weather)}
-            </div>
-            <div className="card">
-              {dailyWeatherReport(2, weather)}
-            </div>
-            <div className="card">
-              {dailyWeatherReport(3, weather)}
-            </div>
-            <div className="card">
-              {dailyWeatherReport(4, weather)}
-            </div>
-            <div className="card">
-              {dailyWeatherReport(5, weather)}
-            </div>
-            <div className="card">
-              {dailyWeatherReport(6, weather)}
-            </div>
-          </div>
+          )}
         </div>
+
         <div className="controls">
           <button onClick={onBack}>Search new city</button>
         </div>

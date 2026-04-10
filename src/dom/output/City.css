@@ -89,6 +89,11 @@
   text-align: center;
   flex: 0 0 auto;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+
+  h1 {
+    margin: auto;
+    font-size: 3rem;
+  }
 }
 
 .controls {
@@ -144,7 +149,7 @@ button:hover {
     margin-bottom: 20px;
 
     .card {
-      margin: 3% 0 3% 0;
+      margin: 4% 0 3% 0;
     }
   }
 }
