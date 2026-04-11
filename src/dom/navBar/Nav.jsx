@@ -5,14 +5,16 @@ function Nav({ settings, setSettings }) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isOpen, setIsOpen] = useState(false);
 
-  // settings
+  // settings nav
   const [settingsOpen, setSettingsOpen] = useState(false);
   const updateSetting = (key, value) => {
         // passing the settings KEYS into the params in main.jsx
         setSettings(prev => ({ ...prev, [key]: value }));
     };
-  // about
+  // about nav
   const [aboutOpen, setAboutOpen] = useState(false); // no need to pass these params to main.jsx. they're not needed
+  // API nav
+  const [apiOpen, setAPIOpen] = useState(false); // no need to pass these params to main.jsx. they're not needed
 
   const dropdownRef = useRef(null);
 
@@ -46,6 +48,17 @@ function Nav({ settings, setSettings }) {
         <p>
           A weather app created in fulfillment of the final project
           requirement of Web Systems and Technologies.
+        </p>
+      </div>
+    );
+  }
+
+  const apiHero = (port) => {
+    return (
+      <div className={port}>
+        <p>Uses <a href="https://open-meteo.com/en/about">Open-Meteo Weather API</a>.</p>
+        <p>
+          Open-Meteo is an open-source weather API and offers free access for non-commercial use. No API key is required.
         </p>
       </div>
     );
@@ -89,7 +102,9 @@ function Nav({ settings, setSettings }) {
         <ul id='navBtns' ref={dropdownRef}>
           {!isMobile && ( /* desktop mode. */
             <>
-              <li><button className='navBtn'>Home</button></li>
+              <li><button className='navBtn' onClick={() => setAPIOpen(!apiOpen)}>API</button>
+              {apiOpen && apiHero("about-menu")}
+              </li>
               <li><button className='navBtn' onClick={() => setAboutOpen(!aboutOpen)}>About</button>
               { aboutOpen && aboutHero("about-menu") }
               </li>
@@ -113,7 +128,7 @@ function Nav({ settings, setSettings }) {
 
           {isMobile && isOpen && (
             <div className="mobileMenuDropdown">
-              <li><button className='navBtn mobileNavBtn'>Home</button></li>
+              <li><button className='navBtn mobileNavBtn'>API</button></li>
               <li><button className='navBtn mobileNavBtn' onClick={() => setAboutOpen(!aboutOpen)}>About</button>
               { aboutOpen && aboutHero("mobile-about-menu") }
               </li>

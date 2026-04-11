@@ -41,14 +41,23 @@ function City({ onBack, settings }) {
         const data = await res.json();
         if (data.results && data.results.length > 0) {
           setLocation(data.results[0]);
-          fetchWeather(data.results[0].latitude, data.results[0].longitude);
+          fetchWeather(
+            data.results[0].latitude,
+            data.results[0].longitude,
+          ).catch((error) => {
+            console.error(
+              "Cannot find weather data for this location. " + error,
+            );
+          });
         }
       }
     };
-    initialSearch();
+    initialSearch().catch(error => {
+      console.error("Cannot find coordinate data for this location. " + error)
+    });
   }, []);
 
-  let changeBg = new Promise((resolve, reject) => {
+  const changeBg = new Promise((resolve, reject) => {
     if (weather != null) {
       resolve(weather);
     } else {

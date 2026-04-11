@@ -4,6 +4,7 @@
   margin-left: 6%;
   margin-bottom: auto;
   margin-top: auto;
+  transition: 0.2s ease-in-out;
 }
 
 .cityWeather {
@@ -74,7 +75,7 @@
   }
 
   p {
-    margin-bottom: auto;
+    margin-bottom: auto + 12px;
   }
   #pressure {
     font-size: 1.8rem;
