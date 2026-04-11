@@ -84,7 +84,7 @@ function City({ onBack, settings }) {
   return (
     <>
       <p className="location">
-        {error ? `No results for '${getSearchedCity()}'` : weather ? `${location.name}, ${location.country}` : "Finding location..."}
+        {error ? (settings.language === 'jp' ? `'${getSearchedCity()}' 検索無結果` : `No results for '${getSearchedCity()}'`) : weather ? `${location.name}, ${location.country}` : settings.language === 'jp' ? "都市情報検索中…" : "Finding location..."}
       </p>
       
       <h1 className="cityName">
