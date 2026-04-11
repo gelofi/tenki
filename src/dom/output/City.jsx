@@ -7,7 +7,7 @@ function City({ onBack, settings }) {
   const [weather, setWeather] = useState(null);
   const [location, setLocation] = useState(getSearchedCity() || "");
   const [isForecastOpen, setIsForecastOpen] = useState(false);
-  const [error, setError] = useState(false); // error state if weather data is found, or not
+  const [error, setError] = useState(false); 
 
   const formatTemp = (celsius) => {
     if (settings.temp === "F")
@@ -40,14 +40,14 @@ function City({ onBack, settings }) {
           const data = await res.json();
           
           if (data.results && data.results.length > 0) {
-            setError(false); // no error found
+            setError(false); 
             setLocation(data.results[0]);
             await fetchWeather(data.results[0].latitude, data.results[0].longitude);
           } else {
-            setError(true); // set state to true when error occurs (no data)
+            setError(true); 
           }
         } catch (err) {
-          setError(true); // set state to true when error occurs (location not found!)
+          setError(true); 
           console.error(err);
         }
       }
@@ -55,7 +55,6 @@ function City({ onBack, settings }) {
     initialSearch();
   }, []);
 
-  // promise removed in Tenki v5.4
   useEffect(() => {
     if (weather) {
       const temp = weather.current.temperature_2m;
@@ -88,46 +87,51 @@ function City({ onBack, settings }) {
         {error ? `No results for '${getSearchedCity()}'` : weather ? `${location.name}, ${location.country}` : "Finding location..."}
       </p>
       
-      {/* Updated cityName logic */}
       <h1 className="cityName">
         {error ? "Error 404" : weather ? formatTemp(weather.current.temperature_2m) : "--°"}
       </h1>
 
       <h2 className="cityWeather">
-        {error ? "City not found." : weather ? `${weatherMap[weather.current.weather_code].icon} ${weatherMap[weather.current.weather_code].desc}` : "Loading weather report..."}
+        {error 
+          ? (settings.language === "jp" ? "都市が見つかりません" : "City not found.") 
+          : weather 
+            ? `${weatherMap[weather.current.weather_code].icon} ${weatherMap[weather.current.weather_code].desc[settings.language]}` 
+            : "..."}
       </h2>
 
       {!error && (
         <>
           <p className="feelsLike">
-            {weather ? `Feels like ${formatTemp(weather.current.apparent_temperature)}` : ""}
+            {weather 
+              ? `${settings.language === "jp" ? "体感温度" : "Feels like"} ${formatTemp(weather.current.apparent_temperature)}` 
+              : ""}
           </p>
 
           <div className="two-grid">
             <div className="weather-card">
-              <h2>Humidity</h2>
+              <h2>{settings.language === "jp" ? "湿度" : "Humidity"}</h2>
               <h1>{weather ? `${weather.current.relative_humidity_2m}%` : "--"}</h1>
-              <p>{weather ? humidityMap(weather.current.relative_humidity_2m) : "..."}</p>
+              <p>{weather ? humidityMap(weather.current.relative_humidity_2m, settings.language) : "..."}</p>
             </div>
             <div className="weather-card">
-              <h2>Surface Pressure</h2>
+              <h2>{settings.language === "jp" ? "気圧" : "Surface Pressure"}</h2>
               <h1 id="pressure">{weather ? formatPressure(weather.current.surface_pressure) : "--"}</h1>
-              <p>{weather ? surfacePressureMap(weather.current.surface_pressure) : "..."}</p>
+              <p>{weather ? surfacePressureMap(weather.current.surface_pressure, settings.language) : "..."}</p>
             </div>
           </div>
 
           <div className="grid">
             <div className="weather-card">
-              <h2>Wind Speed</h2>
+              <h2>{settings.language === "jp" ? "風速" : "Wind Speed"}</h2>
               <h1>{weather ? `${weather.current.wind_speed_10m} km/h` : "--"}</h1>
-              <p>{weather ? windSpeedMap(weather.current.wind_speed_10m) : "..."}</p>
+              <p>{weather ? windSpeedMap(weather.current.wind_speed_10m, settings.language) : "..."}</p>
             </div>
           </div>
 
           <div className="grid">
             <div className="weather-card daily">
               <h2 onClick={() => setIsForecastOpen(!isForecastOpen)} style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                Daily Forecast <span>{isForecastOpen ? "▲" : "▼"}</span>
+                {settings.language === "jp" ? "週間予報" : "Daily Forecast"} <span>{isForecastOpen ? "▲" : "▼"}</span>
               </h2>
               {isForecastOpen && (
                 <div className="seven-grid">
@@ -143,7 +147,7 @@ function City({ onBack, settings }) {
 
       <div className="grid">
         <div className="controls">
-          <button onClick={onBack}>Search new city</button>
+          <button onClick={onBack}>{settings.language === "jp" ? "新しい都市を検索" : "Search new city"}</button>
         </div>
       </div>
     </>

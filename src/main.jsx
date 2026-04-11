@@ -8,7 +8,7 @@ import City from './dom/output/City.jsx';
 function Page() {
   // sharing the params for all JSX files
   const [city, setCity] = useState("");
-  const [settings, setSettings] = useState({ temp: 'C', pressure: 'kPa' });
+  const [settings, setSettings] = useState({ temp: 'C', pressure: 'kPa', language: "en" });
 
   return (
     <>
@@ -16,7 +16,7 @@ function Page() {
       <Nav settings={settings} setSettings={setSettings} />
       
       {!city ? (
-        <Welcome onSearch={setCity} />
+        <Welcome onSearch={setCity} settings={settings} />
       ) : (
         /* passing city params */
         <City city={city} settings={settings} onBack={() => setCity("")} />
