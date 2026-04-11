@@ -85,7 +85,7 @@ function City({ onBack, settings }) {
   return (
     <>
       <p className="location">
-        {error ? "Try another city?" : weather ? `${location.name}, ${location.country}` : "Finding location..."}
+        {error ? `No results for '${getSearchedCity()}'` : weather ? `${location.name}, ${location.country}` : "Finding location..."}
       </p>
       
       {/* Updated cityName logic */}
