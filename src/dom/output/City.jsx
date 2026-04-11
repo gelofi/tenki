@@ -193,7 +193,7 @@ function City({ onBack, settings }) {
               ? `${settings.language === "jp" ? "体感温度" : "Feels like"} ${formatTemp(weather.current.apparent_temperature)}`
               : ""}
           </p>
-          {/* HOURLY FORECAST */}
+          {/* hourly forecast */}
           <div className="grid">
             <div className="weather-card scroll">
               <div
@@ -203,7 +203,7 @@ function City({ onBack, settings }) {
                   alignItems: "center",
                 }}
               >
-                <h2>
+                <h2 style={{ marginLeft: "3%" }}>
                   {settings.language === "jp"
                     ? "時間別予報"
                     : "Hourly Forecast"}
