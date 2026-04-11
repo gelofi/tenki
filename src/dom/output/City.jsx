@@ -147,7 +147,7 @@ function City({ onBack, settings }) {
     return filteredResults.length > 0 ? (
       hourlyForecasts
     ) : (
-      <p style={{ opacity: 0.6, fontSize: "0.9rem" }}>
+      <p style={{ opacity: 0.6, fontSize: "0.9rem", marginLeft: "3%" }}>
         {settings.language === "jp"
           ? "本日の予報は終了しました"
           : "No more forecast for today."}
