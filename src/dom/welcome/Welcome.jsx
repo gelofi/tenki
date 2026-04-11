@@ -24,7 +24,7 @@ function Welcome({ onSearch, settings }) {
             <p className="description">
                 {settings.language === "jp" ? "場所の天気情報を検索" : "Look up weather information for a location."}
             </p>
-            <div className="grid">
+            <div className="search-container">
                 <div className="search-card">
                     <form onSubmit={handleSearch}>
                         <input
