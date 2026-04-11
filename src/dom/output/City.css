@@ -84,6 +84,11 @@
   }
 }
 
+.scroll {
+    min-width: 0; 
+    overflow: hidden;
+}
+
 .daily {
   transition: 0.3s;
   h2, p {
@@ -101,7 +106,7 @@
 
 .card {
   transition: 0.3s;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(15px);
   border-radius: 15px;
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -127,14 +132,6 @@
     text-align: center;
 }
 
-.search-card form {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  max-width: 350px;
-  margin: 0 auto;
-}
-
 button {
   background: rgba(255, 255, 255, 0.18);
   border: 1px solid rgba(255, 255, 255, 0.25);
@@ -150,6 +147,80 @@ button {
 button:hover {
   background: rgba(255, 255, 255, 0.3);
   transform: translateY(-1px);
+}
+
+.hourly-carousel {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important; /* prevents wrapping to a new line */
+    overflow-x: scroll !important; /* forces the scrollbar capability */
+    width: 100%;
+    gap: 15px;
+    padding: 10px 0;
+    
+    /* smoothness */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    
+    /* Hide scrollbar */
+    scrollbar-width: none; 
+}
+
+.hourly-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.hourly-item {
+    flex: 0 0 90px !important; 
+    min-width: 90px !important; /* force width */
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.carousel-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-btns button {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  font-size: 0.8rem;
+}
+
+.carousel-btns button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.hourly-carousel, .daily-carousel {
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hourly-carousel::-webkit-scrollbar, 
+.daily-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.uv-tag {
+  font-size: 0.7rem;
+  opacity: 0.8;
+  margin-top: 5px;
 }
 
 @media screen and (max-width: 768px) {
