@@ -164,7 +164,7 @@ button:hover {
 
 .carousel-item {
     flex: 0 0 90px !important; 
-    min-width: 110px; /* force width */
+    min-width: 100px; /* force width */
     display: flex;
     flex-direction: column;
     align-items: center;
