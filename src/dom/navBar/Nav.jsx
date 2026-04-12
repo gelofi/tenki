@@ -8,7 +8,7 @@ function Nav({ settings, setSettings }) {
   const [aboutOpen, setAboutOpen] = useState(false);
   const [apiOpen, setAPIOpen] = useState(false);
 
-  const isJP = settings.language === "jp"; // Helper variable for cleaner code
+  const isJP = settings.language === "ja"; // helper variable for cleaner code
 
   const updateSetting = (key, value) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
@@ -43,10 +43,12 @@ function Nav({ settings, setSettings }) {
   const aboutHero = (port) => {
     return (
       <div className={port}>
-        <p>{isJP ? "♡ 開発者：アンヘロ" : "Developed by Angelo ♡ in Vite-React"}</p>
         <p>
-          {isJP 
-            ? "Web Systems and Technologiesの最終プロジェクト要件を満たすために作成された天気情報の検索アプリです。" 
+          {isJP ? "♡ 開発者：アンヘロ" : "Developed by Angelo ♡ in Vite-React"}
+        </p>
+        <p>
+          {isJP
+            ? "Web Systems and Technologiesの最終プロジェクト要件を満たすために作成された天気情報の検索アプリです。"
             : "A weather app created in fulfillment of the final project requirement of Web Systems and Technologies."}
         </p>
       </div>
@@ -61,8 +63,8 @@ function Nav({ settings, setSettings }) {
           <a href="https://open-meteo.com/en/about">Open-Meteo Weather API</a>.
         </p>
         <p>
-          {isJP 
-            ? "Open-Meteoはオープンソースの気象APIであり、非商用利用には無料アクセスを提供しています。APIキーは不要です。" 
+          {isJP
+            ? "Open-Meteoはオープンソースの気象APIであり、非商用利用には無料アクセスを提供しています。APIキーは不要です。"
             : "Open-Meteo is an open-source weather API and offers free access for non-commercial use. No API key is required."}
         </p>
       </div>
@@ -74,34 +76,50 @@ function Nav({ settings, setSettings }) {
       <div className={port}>
         <div>
           <label>{isJP ? "温度: " : "Temp: "}</label>
-          <select value={settings.temp} onChange={(e) => updateSetting("temp", e.target.value)}>
+          <select
+            value={settings.temp}
+            onChange={(e) => updateSetting("temp", e.target.value)}
+          >
             <option value="C">°C</option>
             <option value="F">°F</option>
           </select>
         </div>
         <div>
           <label>{isJP ? "気圧: " : "Pressure: "}</label>
-          <select value={settings.pressure} onChange={(e) => updateSetting("pressure", e.target.value)}>
+          <select
+            value={settings.pressure}
+            onChange={(e) => updateSetting("pressure", e.target.value)}
+          >
             <option value="kPa">kPa</option>
             <option value="mmHg">mmHg</option>
           </select>
         </div>
         <div>
           <label>{isJP ? "言語: " : "Language: "}</label>
-          <select value={settings.language} onChange={(e) => updateSetting("language", e.target.value)}>
+          <select
+            value={settings.language}
+            onChange={(e) => updateSetting("language", e.target.value)}
+          >
             <option value="en">English</option>
-            <option value="jp">日本語</option>
+            <option value="ja">日本語</option>
           </select>
         </div>
       </div>
     );
   };
 
+  useEffect(() => {
+    document.documentElement.lang = settings.language;
+  }, [settings.language]);
+
   return (
     <section>
       <nav className="navBar">
         <div id="tenki">
-          <img src="https://img.icons8.com/pulsar-line/144/FFFFFF/partly-cloudy-day.png" alt="Tenki" />
+          <img
+            src="https://img.icons8.com/pulsar-line/144/FFFFFF/partly-cloudy-day.png"
+            alt="Tenki"
+          />
           <h1>{isJP ? "天気" : "Tenki"}</h1>
         </div>
 
@@ -109,17 +127,25 @@ function Nav({ settings, setSettings }) {
           {!isMobile && (
             <>
               <li>
-                <button className="navBtn" onClick={() => setAPIOpen(!apiOpen)}>API</button>
+                <button className="navBtn" onClick={() => setAPIOpen(!apiOpen)}>
+                  API
+                </button>
                 {apiOpen && apiHero("about-menu")}
               </li>
               <li>
-                <button className="navBtn" onClick={() => setAboutOpen(!aboutOpen)}>
+                <button
+                  className="navBtn"
+                  onClick={() => setAboutOpen(!aboutOpen)}
+                >
                   {isJP ? "アプリについて" : "About"}
                 </button>
                 {aboutOpen && aboutHero("about-menu")}
               </li>
               <li style={{ position: "relative" }}>
-                <button className="navBtn" onClick={() => setSettingsOpen(!settingsOpen)}>
+                <button
+                  className="navBtn"
+                  onClick={() => setSettingsOpen(!settingsOpen)}
+                >
                   {isJP ? "設定" : "Settings"}
                 </button>
                 {settingsOpen && settingsHero("settings-menu")}
@@ -140,17 +166,28 @@ function Nav({ settings, setSettings }) {
           {isMobile && isOpen && (
             <div className="mobileMenuDropdown">
               <li>
-                <button className="navBtn mobileNavBtn" onClick={() => setAPIOpen(!apiOpen)}>API</button>
+                <button
+                  className="navBtn mobileNavBtn"
+                  onClick={() => setAPIOpen(!apiOpen)}
+                >
+                  API
+                </button>
                 {apiOpen && apiHero("mobile-about-menu")}
               </li>
               <li>
-                <button className="navBtn mobileNavBtn" onClick={() => setAboutOpen(!aboutOpen)}>
+                <button
+                  className="navBtn mobileNavBtn"
+                  onClick={() => setAboutOpen(!aboutOpen)}
+                >
                   {isJP ? "アプリについて" : "About"}
                 </button>
                 {aboutOpen && aboutHero("mobile-about-menu")}
               </li>
               <li>
-                <button className="navBtn mobileNavBtn" onClick={() => setSettingsOpen(!settingsOpen)}>
+                <button
+                  className="navBtn mobileNavBtn"
+                  onClick={() => setSettingsOpen(!settingsOpen)}
+                >
                   {isJP ? "設定" : "Settings"}
                 </button>
                 {settingsOpen && settingsHero("mobile-settings-menu")}

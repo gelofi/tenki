@@ -43,14 +43,6 @@
   margin-bottom: 20px;
 }
 
-.seven-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 20px;
-  margin: 0px 3% 0px 3%;
-  margin-bottom: 20px;
-}
-
 .weather-card {
   transition: 0.3s;
   background: rgba(255, 255, 255, 0.12);
@@ -149,31 +141,30 @@ button:hover {
   transform: translateY(-1px);
 }
 
-.hourly-carousel {
+.carousel {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important; /* prevents wrapping to a new line */
     overflow-x: scroll !important; /* forces the scrollbar capability */
     width: 100%;
-    gap: 15px;
+    gap: 10px;
     padding: 10px 0;
     
     /* smoothness */
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     
-    /* Hide scrollbar */
-    scrollbar-width: none; 
+    /* hide scrollbar */
+    scrollbar-width: none;
 }
 
-.hourly-carousel::-webkit-scrollbar {
+.carousel::-webkit-scrollbar {
     display: none;
 }
 
-.hourly-item {
+.carousel-item {
     flex: 0 0 90px !important; 
-    min-width: 90px !important; /* force width */
-    
+    min-width: 110px; /* force width */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -206,14 +197,13 @@ button:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 
-.hourly-carousel, .daily-carousel {
+.carousel {
   scroll-behavior: smooth;
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-.hourly-carousel::-webkit-scrollbar, 
-.daily-carousel::-webkit-scrollbar {
+.carousel::-webkit-scrollbar {
   display: none;
 }
 
@@ -240,17 +230,6 @@ button:hover {
 
     p {
       font-size: .9rem;
-    }
-  }
-
-  .seven-grid {
-    display: block;
-    gap: 20px;
-    margin: 0 3% 0 3%;
-    margin-bottom: 20px;
-
-    .card {
-      margin: 4% 0 3% 0;
     }
   }
 }

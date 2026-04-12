@@ -1,28 +1,28 @@
 export const weatherMap = {
-  0: { desc: { en: "Clear Sky", jp: "快晴" }, icon: "☀️" },
-  1: { desc: { en: "Mainly Clear", jp: "概ね晴れ" }, icon: "🌤️" },
-  2: { desc: { en: "Partly Cloudy", jp: "晴れ時々曇り" }, icon: "⛅" },
-  3: { desc: { en: "Overcast", jp: "曇り" }, icon: "☁️" },
-  45: { desc: { en: "Misty", jp: "霧雨" }, icon: "🌫️" },
-  48: { desc: { en: "Foggy", jp: "霧" }, icon: "🌫️" },
-  51: { desc: { en: "Light Drizzle", jp: "弱い霧雨" }, icon: "🌧️" },
-  53: { desc: { en: "Moderate Drizzle", jp: "霧雨" }, icon: "🌧️" },
-  55: { desc: { en: "Heavy Drizzle", jp: "強い霧雨" }, icon: "🌧️" },
-  61: { desc: { en: "Slight Rain", jp: "小雨" }, icon: "🌧️" },
-  63: { desc: { en: "Moderate Rain", jp: "雨" }, icon: "🌧️" },
-  65: { desc: { en: "Heavy Rain", jp: "大雨" }, icon: "⛈️" },
-  71: { desc: { en: "Slight Snow", jp: "小雪" }, icon: "❄️" },
-  73: { desc: { en: "Moderate Snow", jp: "雪" }, icon: "❄️" },
-  75: { desc: { en: "Heavy Snow", jp: "大雪" }, icon: "❄️" },
-  77: { desc: { en: "Snow Grains", jp: "霧雪" }, icon: "❄️" },
-  80: { desc: { en: "Slight Showers", jp: "にわか雨" }, icon: "🌧️" },
-  81: { desc: { en: "Moderate Showers", jp: "強いにわか雨" }, icon: "🌧️" },
-  82: { desc: { en: "Violent Showers", jp: "激しいにわか雨" }, icon: "⛈️" },
-  85: { desc: { en: "Slight Snow Showers", jp: "にわか雪" }, icon: "❄️" },
-  86: { desc: { en: "Heavy Snow Showers", jp: "強いにわか雪" }, icon: "❄️" },
-  95: { desc: { en: "Thunderstorm", jp: "雷雨" }, icon: "⛈️" },
-  96: { desc: { en: "Thunderstorm with Hail", jp: "あられを伴う雷雨" }, icon: "⛈️" },
-  99: { desc: { en: "Thunderstorm with Heavy Hail", jp: "激しいあられを伴う雷雨" }, icon: "⛈️" },
+  0: { desc: { en: "Clear Sky", ja: "快晴" }, icon: "☀️" },
+  1: { desc: { en: "Mainly Clear", ja: "概ね晴れ" }, icon: "🌤️" },
+  2: { desc: { en: "Partly Cloudy", ja: "晴れ時々曇り" }, icon: "⛅" },
+  3: { desc: { en: "Overcast", ja: "曇り" }, icon: "☁️" },
+  45: { desc: { en: "Misty", ja: "霧雨" }, icon: "🌫️" },
+  48: { desc: { en: "Foggy", ja: "霧" }, icon: "🌫️" },
+  51: { desc: { en: "Light Drizzle", ja: "弱い霧雨" }, icon: "🌧️" },
+  53: { desc: { en: "Moderate Drizzle", ja: "霧雨" }, icon: "🌧️" },
+  55: { desc: { en: "Heavy Drizzle", ja: "強い霧雨" }, icon: "🌧️" },
+  61: { desc: { en: "Slight Rain", ja: "小雨" }, icon: "🌧️" },
+  63: { desc: { en: "Moderate Rain", ja: "雨" }, icon: "🌧️" },
+  65: { desc: { en: "Heavy Rain", ja: "大雨" }, icon: "⛈️" },
+  71: { desc: { en: "Slight Snow", ja: "小雪" }, icon: "❄️" },
+  73: { desc: { en: "Moderate Snow", ja: "雪" }, icon: "❄️" },
+  75: { desc: { en: "Heavy Snow", ja: "大雪" }, icon: "❄️" },
+  77: { desc: { en: "Snow Grains", ja: "霧雪" }, icon: "❄️" },
+  80: { desc: { en: "Slight Showers", ja: "にわか雨" }, icon: "🌧️" },
+  81: { desc: { en: "Moderate Showers", ja: "強いにわか雨" }, icon: "🌧️" },
+  82: { desc: { en: "Violent Showers", ja: "激しいにわか雨" }, icon: "⛈️" },
+  85: { desc: { en: "Slight Snow Showers", ja: "にわか雪" }, icon: "❄️" },
+  86: { desc: { en: "Heavy Snow Showers", ja: "強いにわか雪" }, icon: "❄️" },
+  95: { desc: { en: "Thunderstorm", ja: "雷雨" }, icon: "⛈️" },
+  96: { desc: { en: "Thunderstorm with Hail", ja: "あられを伴う雷雨" }, icon: "⛈️" },
+  99: { desc: { en: "Thunderstorm with Heavy Hail", ja: "激しいあられを伴う雷雨" }, icon: "⛈️" },
 };
 
 export const humidityMap = (humidity, lang = "en") => {
@@ -37,7 +37,7 @@ export const humidityMap = (humidity, lang = "en") => {
       humid: "The air is full of moisture. You will likely see fog, mist, or dew, and it can feel very thick and damp.",
       none: "Humidity data unavailable."
     },
-    jp: {
+    ja: {
       veryDry: "空気が非常に乾燥しています。肌やのどの乾燥を感じやすく、静電気が発生しやすくなります。",
       low: "空気中の水分が非常に少ないです。乾燥した気候や暖房の効いた室内によく見られる、カラッとした軽い空気感です。",
       comfortable: "多くの人にとって最も快適な範囲です。乾燥しすぎず、ベタつきもない、バランスの取れた状態です。",
@@ -78,7 +78,7 @@ export const surfacePressureMap = (hPa, lang = "en") => {
       exceptionallyHigh: "Pressure is exceptionally high. This usually indicates very stable air, leading to prolonged periods of fair and dry weather.",
       none: "Pressure data unavailable."
     },
-    jp: {
+    ja: {
       significantlyLow: "気圧が平均を大幅に下回っています。嵐のような天候、強風、激しい降水が伴うことが多いです。",
       low: "低気圧です。空気が上昇して冷えるため、雲や雨、風などの不安定な天候をもたらします。",
       average: "気圧は世界の平均に近いです。通常、安定していますが変化しやすい天候が予想されます。",
@@ -120,7 +120,7 @@ export const windSpeedMap = (kmh, lang = "en") => {
       gale: "Gale force. Possible slight structural damage and very dangerous coastal conditions.",
       none: "Wind data unavailable."
     },
-    jp: {
+    ja: {
       calm: "静穏。煙がまっすぐに立ちのぼり、空気は穏やかです。",
       light: "軽風。顔に風を感じ、木の葉がわずかに揺れます。",
       moderate: "和風。小枝が動き、砂ぼこりや紙くずが舞い上がります。",

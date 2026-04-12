@@ -6,10 +6,11 @@ import { weatherMap, humidityMap, surfacePressureMap, tempIcon, windSpeedMap } f
 function City({ onBack, settings }) {
   const [weather, setWeather] = useState(null);
   const [location, setLocation] = useState(getSearchedCity() || "");
-  const [isForecastOpen, setIsForecastOpen] = useState(false);
   const [error, setError] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   const hourlyRef = useRef(null);
+  const dailyRef = useRef(null);
 
   // scroll function for the hourly forecast
   const scroll = (ref, direction) => {
@@ -20,7 +21,15 @@ function City({ onBack, settings }) {
   };
 
   // checks if mobile or desktop
-  const isDesktop = window.innerWidth >= 768;
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  });
+
 
   const formatTemp = (celsius) => {
     if (settings.temp === "F")
@@ -95,17 +104,19 @@ function City({ onBack, settings }) {
 
   const dailyWeatherReport = (index, weather) => {
     if (!weather) return null;
+    const date = new Date(weather.daily.time[index]); // just get MM/DD, no year
+    const formattedDate = `${date.getMonth() + 1}/${date.getDate()}`;
     return (
       <>
-        <p>{weather.daily.time[index]}</p>
-        <h1>
+        <p>{formattedDate}</p>
+        <h2>
           {tempIcon(
             (weather.daily.temperature_2m_min[index] +
               weather.daily.temperature_2m_max[index]) /
               2,
           )}
-        </h1>
-        <p className="dailyTemp">
+        </h2>
+        <p className="dailyTemp" style={{ fontSize: "0.8rem", textAlign: "center" }}>
           {formatTemp(weather.daily.temperature_2m_min[index])} /{" "}
           {formatTemp(weather.daily.temperature_2m_max[index])}
         </p>
@@ -132,7 +143,7 @@ function City({ onBack, settings }) {
       if (forecastDate !== localToday) return null;
 
       return (
-        <div key={index} className="hourly-item">
+        <div key={index} className="carousel-item">
           <p>{forecastTime.getHours()}:00</p>
           <h2>{tempIcon(weather.hourly.temperature_2m[index])}</h2>
           <p>{formatTemp(weather.hourly.temperature_2m[index])}</p>
@@ -148,7 +159,7 @@ function City({ onBack, settings }) {
       hourlyForecasts
     ) : (
       <p style={{ opacity: 0.6, fontSize: "0.9rem", marginLeft: "3%" }}>
-        {settings.language === "jp"
+        {settings.language === "ja"
           ? "本日の予報は終了しました"
           : "No more forecast for today."}
       </p>
@@ -161,12 +172,12 @@ function City({ onBack, settings }) {
       {/* show information here */}
       <p className="location">
         {error
-          ? settings.language === "jp"
+          ? settings.language === "ja"
             ? `'${getSearchedCity()}' 検索無結果`
             : `No results for '${getSearchedCity()}'`
           : weather
             ? `${location.name}, ${location.country}`
-            : settings.language === "jp"
+            : settings.language === "ja"
               ? "都市情報検索中…"
               : "Finding location..."}
       </p>
@@ -179,7 +190,7 @@ function City({ onBack, settings }) {
       </h1>
       <h2 className="cityWeather">
         {error
-          ? settings.language === "jp"
+          ? settings.language === "ja"
             ? "都市が見つかりません"
             : "City not found."
           : weather
@@ -190,7 +201,7 @@ function City({ onBack, settings }) {
         <>
           <p className="feelsLike">
             {weather
-              ? `${settings.language === "jp" ? "体感温度" : "Feels like"} ${formatTemp(weather.current.apparent_temperature)}`
+              ? `${settings.language === "ja" ? "体感温度" : "Feels like"} ${formatTemp(weather.current.apparent_temperature)}`
               : ""}
           </p>
           {/* hourly forecast */}
@@ -204,18 +215,18 @@ function City({ onBack, settings }) {
                 }}
               >
                 <h2 style={{ marginLeft: "3%" }}>
-                  {settings.language === "jp"
+                  {settings.language === "ja"
                     ? "時間別予報"
                     : "Hourly Forecast"}
                 </h2>
-                {isDesktop && (
+                {!isMobile && (
                   <div className="carousel-btns">
                     <button onClick={() => scroll(hourlyRef, "prev")}>❮</button>
                     <button onClick={() => scroll(hourlyRef, "next")}>❯</button>
                   </div>
                 )}
               </div>
-              <div className="hourly-carousel" ref={hourlyRef}>
+              <div className="carousel" ref={hourlyRef}>
                 {renderHourlyForecast()}
               </div>
             </div>
@@ -223,7 +234,7 @@ function City({ onBack, settings }) {
           {/* humidity */}
           <div className="two-grid">
             <div className="weather-card">
-              <h2>{settings.language === "jp" ? "湿度" : "Humidity"}</h2>
+              <h2>{settings.language === "ja" ? "湿度" : "Humidity"}</h2>
               <h1>
                 {weather ? `${weather.current.relative_humidity_2m}%` : "--"}
               </h1>
@@ -239,7 +250,7 @@ function City({ onBack, settings }) {
             {/* surface pressure */}
             <div className="weather-card">
               <h2>
-                {settings.language === "jp" ? "気圧" : "Surface Pressure"}
+                {settings.language === "ja" ? "気圧" : "Surface Pressure"}
               </h2>
               <h1 id="pressure">
                 {weather
@@ -259,7 +270,7 @@ function City({ onBack, settings }) {
           {/* wind speed */}
           <div className="grid">
             <div className="weather-card">
-              <h2>{settings.language === "jp" ? "風速" : "Wind Speed"}</h2>
+              <h2>{settings.language === "ja" ? "風速" : "Wind Speed"}</h2>
               <h1>
                 {weather ? `${weather.current.wind_speed_10m} km/h` : "--"}
               </h1>
@@ -275,28 +286,31 @@ function City({ onBack, settings }) {
           </div>
           {/* daily forecast */}
           <div className="grid">
-            <div className="weather-card daily">
-              <h2
-                onClick={() => setIsForecastOpen(!isForecastOpen)}
+            <div className="weather-card scroll">
+              <div
                 style={{
-                  cursor: "pointer",
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
                 }}
               >
-                {settings.language === "jp" ? "週間予報" : "Daily Forecast"}{" "}
-                <span>{isForecastOpen ? "▲" : "▼"}</span>
-              </h2>
-              {isForecastOpen && (
-                <div className="seven-grid">
-                  {[...Array(7)].map((_, i) => (
-                    <div key={i} className="card">
-                      {dailyWeatherReport(i, weather)}
-                    </div>
-                  ))}
-                </div>
-              )}
+                <h2 style={{ marginLeft: "3%" }}>
+                  {settings.language === "ja" ? "週間予報" : "Daily Forecast"}
+                </h2>
+                {!isMobile && (
+                  <div className="carousel-btns">
+                    <button onClick={() => scroll(dailyRef, "prev")}>❮</button>
+                    <button onClick={() => scroll(dailyRef, "next")}>❯</button>
+                  </div>
+                )}
+              </div>
+              <div className="carousel" ref={dailyRef}>
+                {[...Array(7)].map((_, i) => (
+                  <div key={i} className="carousel-item" style={ !isMobile ? { minWidth: "156px" } : null }>
+                    {dailyWeatherReport(i, weather)}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </>
@@ -305,7 +319,7 @@ function City({ onBack, settings }) {
       <div className="grid">
         <div className="controls">
           <button onClick={onBack}>
-            {settings.language === "jp"
+            {settings.language === "ja"
               ? "新しい都市を検索"
               : "Search new city"}
           </button>
